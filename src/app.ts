@@ -6,6 +6,8 @@ import { requestLoggerMiddleware } from "./middleware/request.Logger.middleware"
 import runDB from "./middleware/dbMongoose";
 import WhatsLead from "./model/whatsLead.model";
 import Control from "./model/control.model";
+// import is_mobile from './middleware/detect.mobile'
+// import whats_navigator from "./middleware/detect_navigator";
 
 // import {WhatsLeadRoutes} from './routes/whatslead.routes'
 
@@ -23,6 +25,7 @@ app.use(requestLoggerMiddleware);
 // import { api } from './services/api'
 
 export default async function WbotStart() {
+
   try {
     await create("Festeiras2")
       .then((client: Whatsapp) => gerandoListaPeloWhatsapp(client))
@@ -150,8 +153,8 @@ async function gerandoListaPeloWhatsapp(client: Whatsapp) {
                 aMSN =
                   "Olá, sou a *Lu*, uma atendente virtual, irei te manter informada(a) com notícias relevantes. \n\n" +
                   "Sobre *Personalizados de Luxo*. Estamos próximas de uma data festiva?";
-                // "Se esse conteúdo não for do seu interesse, basta digitar */sair*, que não te enviarei mais. \n\n" +
-                "Se você lembrar de alguém que possa se interesar por essa oportunidade. *Por favor, compartilhe com ela!*\n\n" +
+                  // "Se esse conteúdo não for do seu interesse, basta digitar */sair*, que não te enviarei mais. \n\n" +
+                  "Se você lembrar de alguém que possa se interesar por essa oportunidade. *Por favor, compartilhe com ela!*\n\n" +
                   "Use */* para exibir nosso menu de opções!";
                 client.sendText(message.from, aMSN);
 
@@ -189,9 +192,17 @@ async function gerandoListaPeloWhatsapp(client: Whatsapp) {
                 let QtConversas = await Control.find({
                   WhatsLeadId: idContato,
                 }).countDocuments();
+
                 if (QtConversas == 3) {
                   aMSN =
                     "Venha conhecer *meu site*,\n*se inscreva* para receber novidades, \ncompartilhe com seus contatos, \nveja os cursos e produtos da FestaDaLu Decorações!\n\n" +
+                    "link para o site aqui....." +
+                    "\n\n*Use / para exibir nosso menu de opções!*";
+                  client.sendText(message.from, aMSN);
+                }
+                if (QtConversas == 23) {
+                  aMSN =
+                    "Oi, já conhece *meu site*?\n Dê uma olhada e aproveita e *se inscreva* para receber novidades, \ncompartilhe com seus contatos, \nveja os cursos e produtos da FestaDaLu Decorações!\n\n" +
                     "link para o site aqui....." +
                     "\n\n*Use / para exibir nosso menu de opções!*";
                   client.sendText(message.from, aMSN);
@@ -201,7 +212,6 @@ async function gerandoListaPeloWhatsapp(client: Whatsapp) {
             }
             break;
           } catch (error) {
-            // if (!user) user:void
             console.error("Ocorreu um Erro: " + error);
           }
         }

@@ -19,7 +19,7 @@
     "mongodb": "^3.6.9",
     "mongoose": "^5.12.13",
     "typescript": "^4.3.2",
-    "venom-bot": "^3.0.18"
+    "venom-bot": "^3.0.20"
   },
   "devDependencies": {
     "@types/cors": "^2.8.10",
