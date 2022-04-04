@@ -9,7 +9,7 @@ interface ConnectType {
 
 // process.env.MONGODB_URI
 const client = new MongoClient(
-  "mongodb+srv://losangelo:olegnasol@cluster0.lsx7k.mongodb.net/dbEmpreenderComFestas?retryWrites=true&w=majority",
+  "coloqueoseupath",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
